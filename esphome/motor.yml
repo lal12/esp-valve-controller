@@ -1,0 +1,62 @@
+switch:
+  - platform: gpio
+    id: ${ID_PREFIX}_close
+    name: "${NAME} Close"
+    pin:
+      sn74hc595: ${SHIFTREG_ID}
+      number: ${PIN_CLOSE_NO}
+      inverted: false
+    #INT internal: true
+    interlock:
+      - ${ID_PREFIX}_open
+  - platform: gpio
+    id: ${ID_PREFIX}_open
+    name: "${NAME} Open"
+    pin:
+      sn74hc595: ${SHIFTREG_ID}
+      number: ${PIN_OPEN_NO}
+      inverted: false
+    #INT internal: true
+    interlock: 
+      - ${ID_PREFIX}_close
+  
+sensor:
+  - platform: adc
+    pin: ${PIN_ADC}
+    #INT internal: true
+    name: "${NAME} Current"
+    id: ${ID_PREFIX}_current
+    update_interval: 1ms
+    filters:
+      - multiply: 1.96078
+      - sliding_window_moving_average:
+          window_size: 15
+          send_every: 15
+    unit_of_measurement: 'A'
+    
+binary_sensor:
+  - platform: template
+    id: ${ID_PREFIX}_end_cond
+    #INT internal: true
+    lambda: |-
+      return id(${ID_PREFIX}_current).state > ${CURRENT_THRESHOLD};
+  
+cover:
+  - platform: endstop
+    name: "${NAME}"
+    open_action:
+      - switch.turn_on: ${ID_PREFIX}_open
+      - switch.turn_off: ${ID_PREFIX}_close
+    open_duration: 40s #39s
+    open_endstop: ${ID_PREFIX}_end_cond
+    close_action:
+      - switch.turn_on: ${ID_PREFIX}_close
+      - switch.turn_off: ${ID_PREFIX}_open
+    close_duration: 50s #49s
+    close_endstop: ${ID_PREFIX}_end_cond
+    stop_action:
+      - switch.turn_off: ${ID_PREFIX}_open
+      - switch.turn_off: ${ID_PREFIX}_close
+    max_duration : 55s
+    entity_category: diagnostic
+    id: ${ID_PREFIX}_cover

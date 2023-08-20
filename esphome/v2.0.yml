@@ -1,0 +1,105 @@
+sn74hc595:
+  - id: 'sn74hc595_hub'
+    data_pin: GPIO4
+    clock_pin: GPIO21
+    latch_pin: GPIO17
+    oe_pin: GPIO16
+    sr_count: 2
+
+packages:
+  m1: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m1
+      NAME: "Motor 1"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 0
+      PIN_OPEN_NO: 1
+      PIN_ADC: GPIO33
+      CURRENT_THRESHOLD: 1.9
+  m2: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m2
+      NAME: "Motor 2"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 2
+      PIN_OPEN_NO: 3
+      PIN_ADC: GPIO32
+      CURRENT_THRESHOLD: 1.9
+  m3: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m3
+      NAME: "Motor 3"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 4
+      PIN_OPEN_NO: 5
+      PIN_ADC: GPIO35
+      CURRENT_THRESHOLD: 1.9
+  m4: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m4
+      NAME: "Motor 4"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 6
+      PIN_OPEN_NO: 7
+      PIN_ADC: GPIO34
+      CURRENT_THRESHOLD: 1.9
+  m5: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m5
+      NAME: "Motor 5"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 8
+      PIN_OPEN_NO: 9
+      PIN_ADC: GPIO39
+      CURRENT_THRESHOLD: 1.9
+  m6: !include
+    file: ./motor.yml
+    vars:
+      ID_PREFIX: m6
+      NAME: "Motor 6"
+      SHIFTREG_ID: sn74hc595_hub
+      PIN_CLOSE_NO: 10
+      PIN_OPEN_NO: 11
+      PIN_ADC: GPIO36
+      CURRENT_THRESHOLD: 1.9
+
+
+# Individual outputs
+switch:
+  - platform: gpio
+    id: led1
+    name: "LED1"
+    pin:
+      sn74hc595: sn74hc595_hub
+      number: 12
+      inverted: false
+    #INT internal: true
+  - platform: gpio
+    id: led2
+    name: "LED2"
+    pin:
+      sn74hc595: sn74hc595_hub
+      number: 13
+      inverted: false
+    #INT internal: true
+  - platform: gpio
+    id: led3
+    name: "LED3"
+    pin:
+      sn74hc595: sn74hc595_hub
+      number: 14
+      inverted: false
+    #INT internal: true
+  - platform: gpio
+    id: led4
+    name: "LED4"
+    pin:
+      sn74hc595: sn74hc595_hub
+      number: 15
+      inverted: false
+    #INT internal: true
