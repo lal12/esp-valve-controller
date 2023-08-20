@@ -10,7 +10,13 @@ Include them with the following lines in your esphome config yml:
 
 ```
 packages:
-  valve_controller:
+  valve_controller_2_0:
+    url: https://github.com/lal12/esp-valve-controller
+    ref: master
+    file: esphome/v2.0.yml
+    refresh: 1d # optional
+    vars:
+      LED_INTERNAL: false
     url: https://github.com/lal12/esp-valve-controller
     ref: master
     file: esphome/v1.0.yml

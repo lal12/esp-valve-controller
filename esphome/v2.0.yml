@@ -1,3 +1,6 @@
+substitutions:
+  LED_INTERNAL: 'false'
+
 sn74hc595:
   - id: 'sn74hc595_hub'
     data_pin: GPIO4
@@ -78,7 +81,7 @@ switch:
       sn74hc595: sn74hc595_hub
       number: 12
       inverted: false
-    #INT internal: true
+    internal: ${LED_INTERNAL}
   - platform: gpio
     id: led2
     name: "LED2"
@@ -86,7 +89,7 @@ switch:
       sn74hc595: sn74hc595_hub
       number: 13
       inverted: false
-    #INT internal: true
+    internal: ${LED_INTERNAL}
   - platform: gpio
     id: led3
     name: "LED3"
@@ -94,7 +97,7 @@ switch:
       sn74hc595: sn74hc595_hub
       number: 14
       inverted: false
-    #INT internal: true
+    internal: ${LED_INTERNAL}
   - platform: gpio
     id: led4
     name: "LED4"
@@ -102,4 +105,4 @@ switch:
       sn74hc595: sn74hc595_hub
       number: 15
       inverted: false
-    #INT internal: true
+    internal: ${LED_INTERNAL}
