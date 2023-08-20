@@ -17,6 +17,7 @@ packages:
     refresh: 1d # optional
     vars:
       LED_INTERNAL: false
+  valve_controller_1_0:
     url: https://github.com/lal12/esp-valve-controller
     ref: master
     file: esphome/v1.0.yml
