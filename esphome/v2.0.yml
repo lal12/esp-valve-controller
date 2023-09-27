@@ -1,5 +1,8 @@
 substitutions:
   LED_INTERNAL: 'false'
+  OPEN_DURATION: 40s
+  CLOSE_DURATION: 50s
+  CURRENT_THRESHOLD: 1.9
 
 sn74hc595:
   - id: 'sn74hc595_hub'
@@ -19,7 +22,9 @@ packages:
       PIN_CLOSE_NO: 0
       PIN_OPEN_NO: 1
       PIN_ADC: GPIO33
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
   m2: !include
     file: ./motor.yml
     vars:
@@ -29,7 +34,9 @@ packages:
       PIN_CLOSE_NO: 2
       PIN_OPEN_NO: 3
       PIN_ADC: GPIO32
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
   m3: !include
     file: ./motor.yml
     vars:
@@ -39,7 +46,9 @@ packages:
       PIN_CLOSE_NO: 4
       PIN_OPEN_NO: 5
       PIN_ADC: GPIO35
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
   m4: !include
     file: ./motor.yml
     vars:
@@ -49,7 +58,9 @@ packages:
       PIN_CLOSE_NO: 6
       PIN_OPEN_NO: 7
       PIN_ADC: GPIO34
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
   m5: !include
     file: ./motor.yml
     vars:
@@ -59,7 +70,9 @@ packages:
       PIN_CLOSE_NO: 8
       PIN_OPEN_NO: 9
       PIN_ADC: GPIO39
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
   m6: !include
     file: ./motor.yml
     vars:
@@ -69,8 +82,9 @@ packages:
       PIN_CLOSE_NO: 10
       PIN_OPEN_NO: 11
       PIN_ADC: GPIO36
-      CURRENT_THRESHOLD: 1.9
-
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
+      OPEN_DURATION: ${OPEN_DURATION}
+      CLOSE_DURATION: ${CLOSE_DURATION}
 
 # Individual outputs
 switch:

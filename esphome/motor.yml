@@ -1,3 +1,7 @@
+substitutions:
+  OPEN_DURATION: 40s
+  CLOSE_DURATION: 50s
+
 switch:
   - platform: gpio
     id: ${ID_PREFIX}_close
@@ -47,16 +51,16 @@ cover:
     open_action:
       - switch.turn_on: ${ID_PREFIX}_open
       - switch.turn_off: ${ID_PREFIX}_close
-    open_duration: 40s #39s
+    open_duration: ${OPEN_DURATION}
     open_endstop: ${ID_PREFIX}_end_cond
     close_action:
       - switch.turn_on: ${ID_PREFIX}_close
       - switch.turn_off: ${ID_PREFIX}_open
-    close_duration: 50s #49s
+    close_duration: ${CLOSE_DURATION}
     close_endstop: ${ID_PREFIX}_end_cond
     stop_action:
       - switch.turn_off: ${ID_PREFIX}_open
       - switch.turn_off: ${ID_PREFIX}_close
-    max_duration : 55s
+    max_duration : 60s
     entity_category: diagnostic
     id: ${ID_PREFIX}_cover
