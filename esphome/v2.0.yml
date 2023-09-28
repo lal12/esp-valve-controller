@@ -2,7 +2,7 @@ substitutions:
   LED_INTERNAL: 'false'
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
-  CURRENT_THRESHOLD: 1.9
+  CURRENT_THRESHOLD: '1.9'
 
 sn74hc595:
   - id: 'sn74hc595_hub'
