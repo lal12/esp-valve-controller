@@ -10,7 +10,7 @@ switch:
       sn74hc595: ${SHIFTREG_ID}
       number: ${PIN_CLOSE_NO}
       inverted: false
-    #INT internal: true
+    internal: true
     interlock:
       - ${ID_PREFIX}_open
   - platform: gpio
@@ -27,7 +27,7 @@ switch:
 sensor:
   - platform: adc
     pin: ${PIN_ADC}
-    #INT internal: true
+    internal: true
     name: "${NAME} Current"
     id: ${ID_PREFIX}_current
     update_interval: 1ms
