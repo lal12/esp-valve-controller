@@ -1,6 +1,7 @@
 substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
+  CURRENT_THRESHOLD: 1.95
 
 switch:
   - platform: gpio
@@ -20,7 +21,7 @@ switch:
       sn74hc595: ${SHIFTREG_ID}
       number: ${PIN_OPEN_NO}
       inverted: false
-    #INT internal: true
+    internal: true
     interlock: 
       - ${ID_PREFIX}_close
   
@@ -41,7 +42,7 @@ sensor:
 binary_sensor:
   - platform: template
     id: ${ID_PREFIX}_end_cond
-    #INT internal: true
+    internal: true
     lambda: |-
       return id(${ID_PREFIX}_current).state > ${CURRENT_THRESHOLD};
   
