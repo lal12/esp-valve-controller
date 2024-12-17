@@ -1,7 +1,7 @@
 substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
-  CURRENT_THRESHOLD: 2
+  CURRENT_THRESHOLD: "2"
 
 sn74hc595:
   - id: 'sn74hc595_hub'
