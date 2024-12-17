@@ -1,6 +1,7 @@
 substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
+  CURRENT_THRESHOLD: 1.95
 
 sn74hc595:
   - id: 'sn74hc595_hub'
@@ -20,7 +21,7 @@ packages:
       PIN_CLOSE_NO: 0
       PIN_OPEN_NO: 1
       PIN_ADC: GPIO36
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
   m2: !include
     file: ./motor.yml
     vars:
@@ -30,7 +31,7 @@ packages:
       PIN_CLOSE_NO: 2
       PIN_OPEN_NO: 3
       PIN_ADC: GPIO39
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
   m3: !include
     file: ./motor.yml
     vars:
@@ -40,7 +41,7 @@ packages:
       PIN_CLOSE_NO: 4
       PIN_OPEN_NO: 5
       PIN_ADC: GPIO34
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
   m4: !include
     file: ./motor.yml
     vars:
@@ -50,4 +51,4 @@ packages:
       PIN_CLOSE_NO: 6
       PIN_OPEN_NO: 7
       PIN_ADC: GPIO35
-      CURRENT_THRESHOLD: 1.9
+      CURRENT_THRESHOLD: ${CURRENT_THRESHOLD}
