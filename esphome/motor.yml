@@ -1,7 +1,6 @@
 substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
-  CURRENT_THRESHOLD: 1.95
 
 switch:
   - platform: gpio
