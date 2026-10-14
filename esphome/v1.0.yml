@@ -5,6 +5,7 @@ substitutions:
   CURRENT_THRESHOLD_2: "2"
   CURRENT_THRESHOLD_3: "2"
   CURRENT_THRESHOLD_4: "2"
+  INTERNAL_CURRENT_SENSOR: "true"
 
 sn74hc595:
   - id: 'sn74hc595_hub'
@@ -25,6 +26,7 @@ packages:
       PIN_OPEN_NO: 1
       PIN_ADC: GPIO36
       CURRENT_THRESHOLD: ${CURRENT_THRESHOLD_1}
+      INTERNAL_CURRENT_SENSOR: ${INTERNAL_CURRENT_SENSOR} 
   m2: !include
     file: ./motor.yml
     vars:
@@ -35,6 +37,7 @@ packages:
       PIN_OPEN_NO: 3
       PIN_ADC: GPIO39
       CURRENT_THRESHOLD: ${CURRENT_THRESHOLD_2}
+      INTERNAL_CURRENT_SENSOR: ${INTERNAL_CURRENT_SENSOR} 
   m3: !include
     file: ./motor.yml
     vars:
@@ -45,6 +48,7 @@ packages:
       PIN_OPEN_NO: 5
       PIN_ADC: GPIO34
       CURRENT_THRESHOLD: ${CURRENT_THRESHOLD_3}
+      INTERNAL_CURRENT_SENSOR: ${INTERNAL_CURRENT_SENSOR} 
   m4: !include
     file: ./motor.yml
     vars:
@@ -55,3 +59,4 @@ packages:
       PIN_OPEN_NO: 7
       PIN_ADC: GPIO35
       CURRENT_THRESHOLD: ${CURRENT_THRESHOLD_4}
+      INTERNAL_CURRENT_SENSOR: ${INTERNAL_CURRENT_SENSOR} 
