@@ -1,6 +1,7 @@
 substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
+  INTERNAL_CURRENT_SENSOR: true
 
 switch:
   - platform: gpio
@@ -27,7 +28,7 @@ switch:
 sensor:
   - platform: adc
     pin: ${PIN_ADC}
-    internal: true
+    internal: ${INTERNAL_CURRENT_SENSOR} 
     name: "${NAME} Current"
     id: ${ID_PREFIX}_current
     update_interval: 1ms
