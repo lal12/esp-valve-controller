@@ -41,9 +41,9 @@ sensor:
     name: "${NAME} Current"
     id: ${ID_PREFIX}_current
     update_interval: 1ms
-    # Check: without attenuation the input range is ~1.1 V (≈ 2.1 A after multiply).
-    # If readings clip there: set attenuation and adjust multiply accordingly.
-    # attenuation: 12db
+    # 12db: linear up to ~2.45 V (≈ 4.8 A after multiply). 0db would clip at ~1.06 V (≈ 2.08 A).
+    # The sensor reports volts regardless of attenuation, so multiply stays the same.
+    attenuation: 12db
     filters:
       - multiply: 1.96078
       - sliding_window_moving_average:
