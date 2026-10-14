@@ -2,6 +2,15 @@ substitutions:
   OPEN_DURATION: 40s
   CLOSE_DURATION: 50s
   INTERNAL_CURRENT_SENSOR: true
+  # Time after switching on during which the current is ignored (inrush spike)
+  INRUSH_BLANKING_MS: "800"
+  # How long the threshold must be exceeded continuously before the endstop triggers
+  STALL_CONFIRM: 300ms
+
+globals:
+  - id: ${ID_PREFIX}_start_ms
+    type: uint32_t
+    initial_value: '0'
 
 switch:
   - platform: gpio
@@ -22,46 +31,66 @@ switch:
       number: ${PIN_OPEN_NO}
       inverted: false
     internal: true
-    interlock: 
+    interlock:
       - ${ID_PREFIX}_close
-  
+
 sensor:
   - platform: adc
     pin: ${PIN_ADC}
-    internal: ${INTERNAL_CURRENT_SENSOR} 
+    internal: ${INTERNAL_CURRENT_SENSOR}
     name: "${NAME} Current"
     id: ${ID_PREFIX}_current
     update_interval: 1ms
+    # Check: without attenuation the input range is ~1.1 V (≈ 2.1 A after multiply).
+    # If readings clip there: set attenuation and adjust multiply accordingly.
+    # attenuation: 12db
     filters:
       - multiply: 1.96078
       - sliding_window_moving_average:
           window_size: 15
           send_every: 15
     unit_of_measurement: 'A'
-    
+
+  # Diagnostics: peak current per ~300 ms window to see inrush, running and stall current
+  - platform: copy
+    source_id: ${ID_PREFIX}_current
+    id: ${ID_PREFIX}_current_peak
+    name: "${NAME} Current Peak"
+    internal: ${INTERNAL_CURRENT_SENSOR}
+    unit_of_measurement: 'A'
+    filters:
+      - max:
+          window_size: 20
+          send_every: 20
+
 binary_sensor:
   - platform: template
     id: ${ID_PREFIX}_end_cond
     internal: true
     lambda: |-
+      if (millis() - id(${ID_PREFIX}_start_ms) < ${INRUSH_BLANKING_MS}) return false;
       return id(${ID_PREFIX}_current).state > ${CURRENT_THRESHOLD};
-  
+    filters:
+      - delayed_on: ${STALL_CONFIRM}
+
 cover:
   - platform: endstop
     name: "${NAME}"
     open_action:
-      - switch.turn_on: ${ID_PREFIX}_open
+      - lambda: id(${ID_PREFIX}_start_ms) = millis();
       - switch.turn_off: ${ID_PREFIX}_close
+      - switch.turn_on: ${ID_PREFIX}_open
     open_duration: ${OPEN_DURATION}
     open_endstop: ${ID_PREFIX}_end_cond
     close_action:
-      - switch.turn_on: ${ID_PREFIX}_close
+      - lambda: id(${ID_PREFIX}_start_ms) = millis();
       - switch.turn_off: ${ID_PREFIX}_open
+      - switch.turn_on: ${ID_PREFIX}_close
     close_duration: ${CLOSE_DURATION}
     close_endstop: ${ID_PREFIX}_end_cond
     stop_action:
       - switch.turn_off: ${ID_PREFIX}_open
       - switch.turn_off: ${ID_PREFIX}_close
-    max_duration : 60s
+    max_duration: 60s
     entity_category: diagnostic
     id: ${ID_PREFIX}_cover
